@@ -3,35 +3,34 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.Text
+  session_state     String?
+  createdAt         DateTime @default(now()) @map(name: "created_at")
+  updatedAt         DateTime @default(now()) @map(name: "updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@index([userId])
+  @@map(name: "accounts")
 }
 
 model Session {
@@ -40,7 +39,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@index([userId])
+
+  @@map(name: "sessions")
 }
 
 model User {
@@ -49,8 +49,16 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
+  role          String    @default("customer")
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+  accounts Account[]
+  sessions Session[]
+  Products Product[]
+  Orders   Order[]
+
+  @@map(name: "users")
 }
 
 model VerificationToken {
@@ -59,4 +67,91 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map(name: "verification_tokens")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description Json?
+  price       Float
+  pictures    Json
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @default(now()) @map(name: "updated_at")
+  published   Boolean  @default(false)
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+
+  categories      Category[]
+  orderItems      OrderItem[]
+  versions        Version[] // One-to-many relationship with Version
+  digitalProducts DigitalProduct? // One-to-one relationship with DigitalProduct
+
+  @@map(name: "products")
+}
+
+model DigitalProduct {
+  id           String  @id @default(cuid())
+  productId    String  @unique
+  product      Product @relation(fields: [productId], references: [id])
+  downloadLink String
+  fileSize     String?
+
+  @@map(name: "digital_products")
+}
+
+model Version {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  name      String
+  license   String
+  price     Float
+  createdAt DateTime @default(now()) @map(name: "created_at")
+
+  @@map(name: "versions")
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
+
+  @@map(name: "categories")
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  userId      String
+  paid        Boolean  @default(false)
+  totalAmount Float
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  user        User     @relation(fields: [userId], references: [id])
+
+  orderItems     OrderItem[]
+  StripePayments StripePayment[]
+
+  @@map(name: "orders")
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map(name: "order_items")
+}
+
+model StripePayment {
+  id              String   @id @default(cuid())
+  orderId         String   @unique
+  order           Order    @relation(fields: [orderId], references: [id])
+  paymentIntentId String
+  createdAt       DateTime @default(now()) @map(name: "created_at")
+
+  @@map(name: "stripe_payments")
 }

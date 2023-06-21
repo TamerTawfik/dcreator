@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import prisma from "@/lib/prisma";
+import {db} from "@/lib/db";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const users = await prisma.user.findMany({
+  const users = await db.user.findMany({
     select: {
       id: true,
     },
