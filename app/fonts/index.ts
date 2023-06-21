@@ -1,12 +1,12 @@
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 
-export const sfPro = localFont({
+export const fontHeading = localFont({
   src: "./SF-Pro-Display-Medium.otf",
-  variable: "--font-sf",
+  variable: "--font-heading",
 });
 
-export const inter = Inter({
-  variable: "--font-inter",
+export const fontSans = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
