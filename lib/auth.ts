@@ -97,16 +97,6 @@ export const authOptions: NextAuthOptions = {
         return token
       }
 
-      const isUserFirst = await db.user.count();
-
-      if (isUserFirst === 0) {
-        // If the user is the first to sign in, make them an admin
-        await db.user.update({
-          where: { email: user.email },
-          data: { role: 'admin' },
-        });
-      } 
-
       return {
         id: dbUser.id,
         name: dbUser.name,
