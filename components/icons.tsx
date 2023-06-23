@@ -23,12 +23,14 @@ import {
   Twitter,
   User,
   X,
+  LayoutDashboard,
   type Icon as LucideIcon,
 } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+  dashboard: LayoutDashboard,
   logo: Command,
   close: X,
   spinner: Loader2,
