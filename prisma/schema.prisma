@@ -74,8 +74,8 @@ model Product {
   id          String   @id @default(cuid())
   name        String
   description Json?
-  price       Float
-  pictures    Json
+  price       Float?
+  pictures    Json?
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @default(now()) @map(name: "updated_at")
   published   Boolean  @default(false)
