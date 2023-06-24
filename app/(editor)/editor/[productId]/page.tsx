@@ -5,6 +5,8 @@ import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { Editor } from "@/components/editor"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 
 async function getProductForUser(productId: Product["id"], userId: User["id"]) {
   return await db.product.findFirst({
@@ -33,7 +35,13 @@ export default async function EditorPage({ params }: EditorPageProps) {
   }
 
   return (
-    <Editor
+    <Tabs defaultValue="account" className="">
+  <TabsList>
+    <TabsTrigger value="description">Description</TabsTrigger>
+    <TabsTrigger value="content">Content</TabsTrigger>
+  </TabsList>
+  <TabsContent value="description">
+  <Editor
       product={{
         id: product.id,
         name: product.name,
@@ -41,5 +49,8 @@ export default async function EditorPage({ params }: EditorPageProps) {
         published: product.published,
       }}
     />
+  </TabsContent>
+  <TabsContent value="content">Change your ccontent here.</TabsContent>
+</Tabs>    
   )
 }
