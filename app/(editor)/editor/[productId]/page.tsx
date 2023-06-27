@@ -35,7 +35,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
   }
 
   return (
-    <Tabs defaultValue="account" className="">
+    <Tabs defaultValue="description" className="">
   <TabsList>
     <TabsTrigger value="description">Description</TabsTrigger>
     <TabsTrigger value="content">Content</TabsTrigger>
