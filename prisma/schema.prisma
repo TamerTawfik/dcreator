@@ -75,83 +75,75 @@ model Product {
   name        String
   description Json?
   price       Float?
-  pictures    Json?
-  createdAt   DateTime @default(now()) @map(name: "created_at")
-  updatedAt   DateTime @default(now()) @map(name: "updated_at")
-  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isPublished Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
+  categoryId  String // Foreign Key to Category
+  category    Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
 
-  categories      Category[]
-  orderItems      OrderItem[]
-  versions        Version[] // One-to-many relationship with Version
-  digitalProducts DigitalProduct? // One-to-one relationship with DigitalProduct
-
-  @@map(name: "products")
-}
-
-model DigitalProduct {
-  id           String  @id @default(cuid())
-  productId    String  @unique
-  product      Product @relation(fields: [productId], references: [id])
-  downloadLink String
-  fileSize     String?
-
-  @@map(name: "digital_products")
+  images     Image[] // Relation to Image model
+  orderItems OrderItem[] // Relation to Order model
+  versions   Version[] // One-to-many relationship with Version
 }
 
 model Version {
-  id        String   @id @default(cuid())
-  productId String
-  product   Product  @relation(fields: [productId], references: [id])
-  name      String
-  license   String
-  price     Float
-  createdAt DateTime @default(now()) @map(name: "created_at")
-
-  @@map(name: "versions")
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  name        String
+  license     String
+  description String?
+  price       Float?
+  fileKey     String // Unique identifier for the file 
+  fileSize    Int? // Size of the file in bytes 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Category {
-  id       String    @id @default(cuid())
-  name     String
-  products Product[]
+  id        String    @id @default(cuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[] @relation("CategoryToProduct")
+}
 
-  @@map(name: "categories")
+model Image {
+  id        String   @id @default(uuid())
+  productId String // Foreign Key to Product
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String // URL of the image
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
 }
 
 model Order {
   id          String   @id @default(cuid())
   userId      String
-  paid        Boolean  @default(false)
-  totalAmount Float
-  createdAt   DateTime @default(now()) @map(name: "created_at")
   user        User     @relation(fields: [userId], references: [id])
+  isPaid      Boolean  @default(false)
+  totalAmount Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  orderItems     OrderItem[]
-  StripePayments StripePayment[]
+  orderItems OrderItem[] // Relation to OrderItem model
 
-  @@map(name: "orders")
+  @@index([userId])
 }
 
+// Intermediary for a many-to-many relationship
 model OrderItem {
-  id        String  @id @default(cuid())
-  orderId   String
-  productId String
-  quantity  Int
-  price     Float
+  id        String  @id @default(uuid())
+  orderId   String // Foreign Key to Order
   order     Order   @relation(fields: [orderId], references: [id])
+  productId String // Foreign Key to Product
   product   Product @relation(fields: [productId], references: [id])
 
-  @@map(name: "order_items")
-}
-
-model StripePayment {
-  id              String   @id @default(cuid())
-  orderId         String   @unique
-  order           Order    @relation(fields: [orderId], references: [id])
-  paymentIntentId String
-  createdAt       DateTime @default(now()) @map(name: "created_at")
-
-  @@map(name: "stripe_payments")
+  @@index([orderId])
+  @@index([productId])
 }
