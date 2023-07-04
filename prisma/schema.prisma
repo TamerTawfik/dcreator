@@ -71,18 +71,18 @@ model VerificationToken {
 }
 
 model Product {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
   description Json?
   price       Float?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  isPublished Boolean  @default(false)
-  isFeatured  Boolean  @default(false)
-  author      User     @relation(fields: [authorId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  isPublished Boolean   @default(false)
+  isFeatured  Boolean   @default(false)
+  author      User      @relation(fields: [authorId], references: [id])
   authorId    String
-  categoryId  String // Foreign Key to Category
-  category    Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  categoryId  String? // Foreign Key to Category
+  category    Category? @relation("CategoryToProduct", fields: [categoryId], references: [id])
 
   images     Image[] // Relation to Image model
   orderItems OrderItem[] // Relation to Order model
