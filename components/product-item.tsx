@@ -22,9 +22,7 @@ export function ProductItem({ product }: ProductItemProps) {
         <div>
           <p className="text-sm text-muted-foreground">
             {product.isPublished ? "Published" : "Not Published"}
-          </p>
-        </div>
-        <div>
+          </p>        
           <p className="text-sm text-muted-foreground">
             {formatDate(product.createdAt?.toDateString())}
           </p>
