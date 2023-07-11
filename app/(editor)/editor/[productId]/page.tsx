@@ -38,7 +38,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
     <Tabs defaultValue="description" className="mt-10">
   <TabsList>
     <TabsTrigger value="description">Product Description</TabsTrigger>
-    <TabsTrigger value="product">Product Info</TabsTrigger>
+    <TabsTrigger value="product">Product details</TabsTrigger>
     <TabsTrigger value="content">Digital Files</TabsTrigger>
   </TabsList>
   <TabsContent value="description">
@@ -51,7 +51,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
       }}
     />
   </TabsContent>
-  <TabsContent value="product">Add Product Info.</TabsContent>
+  <TabsContent value="product">Add Product Details.</TabsContent>
   <TabsContent value="content">Add Digital Files.</TabsContent>
 </Tabs>    
   )

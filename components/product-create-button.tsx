@@ -18,41 +18,41 @@ export function ProductCreateButton({
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
-  async function onClick() {
-    setIsLoading(true)
+  // async function onClick() {
+  //   setIsLoading(true)
 
-    const response = await fetch("/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "Untitled Product",
-      }),
-    })
+  //   const response = await fetch("/api/products", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: "Untitled Product",
+  //     }),
+  //   })
 
-    setIsLoading(false)
+  //   setIsLoading(false)
 
-    if (!response?.ok) {
+  //   if (!response?.ok) {
       
-      return toast({
-        title: "Something went wrong.",
-        description: "Your Product was not created. Please try again.",
-        variant: "destructive",
-      })
-    }
+  //     return toast({
+  //       title: "Something went wrong.",
+  //       description: "Your Product was not created. Please try again.",
+  //       variant: "destructive",
+  //     })
+  //   }
 
-    const product = await response.json()
+  //   const product = await response.json()
 
-    // This forces a cache invalidation.
-    router.refresh()
+  //   // This forces a cache invalidation.
+  //   router.refresh()
 
-    router.push(`/editor/${product.id}`)
-  }
+  //   router.push(`/editor/${product.id}`)
+  // }
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => router.push(`/dashboard/products/new`)}
       className={cn(
         buttonVariants({ variant }),
         {

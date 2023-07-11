@@ -30,6 +30,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map(name: "accounts")
 }
 
@@ -40,6 +41,7 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map(name: "sessions")
 }
 
@@ -74,10 +76,10 @@ model Product {
   id          String    @id @default(cuid())
   name        String
   description Json?
-  price       Float?
+  price       Decimal?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  isPublished Boolean   @default(false)
+  isArchived  Boolean   @default(false)
   isFeatured  Boolean   @default(false)
   author      User      @relation(fields: [authorId], references: [id])
   authorId    String
@@ -87,6 +89,10 @@ model Product {
   images     Image[] // Relation to Image model
   orderItems OrderItem[] // Relation to Order model
   versions   Version[] // One-to-many relationship with Version
+
+  @@index([authorId])
+  @@index([categoryId])
+  @@map(name: "products")
 }
 
 model Version {
@@ -96,11 +102,14 @@ model Version {
   name        String
   license     String
   description String?
-  price       Float?
+  price       Decimal?
   fileKey     String // Unique identifier for the file 
   fileSize    Int? // Size of the file in bytes 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+  @@map(name: "versions")
 }
 
 model Category {
@@ -109,6 +118,8 @@ model Category {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   products  Product[] @relation("CategoryToProduct")
+
+  @@map(name: "categories")
 }
 
 model Image {
@@ -120,6 +131,7 @@ model Image {
   updatedAt DateTime @updatedAt
 
   @@index([productId])
+  @@map(name: "images")
 }
 
 model Order {
@@ -134,6 +146,7 @@ model Order {
   orderItems OrderItem[] // Relation to OrderItem model
 
   @@index([userId])
+  @@map(name: "orders")
 }
 
 // Intermediary for a many-to-many relationship
@@ -146,4 +159,5 @@ model OrderItem {
 
   @@index([orderId])
   @@index([productId])
+  @@map(name: "order_items")
 }

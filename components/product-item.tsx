@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { ProductOperations } from "@/components/product-operations"
 
 interface ProductItemProps {
-  product: Pick<Product, "id" | "name" | "isPublished" | "createdAt">
+  product: Pick<Product, "id" | "name" | "isArchived" | "createdAt">
 }
 
 export function ProductItem({ product }: ProductItemProps) {
@@ -21,7 +21,7 @@ export function ProductItem({ product }: ProductItemProps) {
         </Link>
         <div>
           <p className="text-sm text-muted-foreground">
-            {product.isPublished ? "Published" : "Not Published"}
+            {product.isArchived ? "Archived" : "Not Archived"}
           </p>        
           <p className="text-sm text-muted-foreground">
             {formatDate(product.createdAt?.toDateString())}
