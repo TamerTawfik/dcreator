@@ -1,4 +1,5 @@
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
 
 import { ProductForm } from "@/components/product-form";
 
@@ -7,6 +8,8 @@ const ProductPage = async ({
 }: {
   params: { productId: string }
 }) => {
+  const user = await getCurrentUser()
+
   const product = await db.product.findUnique({
     where: {
       id: params.productId,
@@ -18,7 +21,7 @@ const ProductPage = async ({
 
   const categories = await db.category.findMany({
     where: {
-      productId: params.productId,
+      authorId: user?.id,
     },
   });
 

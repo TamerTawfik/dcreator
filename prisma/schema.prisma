@@ -55,10 +55,11 @@ model User {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
 
-  accounts Account[]
-  sessions Session[]
-  Products Product[]
-  Orders   Order[]
+  accounts   Account[]
+  sessions   Session[]
+  Products   Product[]
+  Orders     Order[]
+  categories Category[]
 
   @@map(name: "users")
 }
@@ -117,8 +118,11 @@ model Category {
   name      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
   products  Product[] @relation("CategoryToProduct")
 
+  @@index([authorId])
   @@map(name: "categories")
 }
 
