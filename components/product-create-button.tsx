@@ -52,7 +52,7 @@ export function ProductCreateButton({
 
   return (
     <button
-      onClick={() => router.push(`/dashboard/products/new`)}
+      onClick={() => router.push('/dashboard/products/new')}
       className={cn(
         buttonVariants({ variant }),
         {
