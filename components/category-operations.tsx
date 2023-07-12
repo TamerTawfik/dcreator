@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Product } from "@prisma/client"
+import { Category } from "@prisma/client"
 
 import {
   AlertDialog,
@@ -25,15 +25,15 @@ import {
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
-async function deleteProduct(productId: string) {
-  const response = await fetch(`/api/products/${productId}`, {
+async function deleteCategory(categoryId: string) {
+  const response = await fetch(`/api/categories/${categoryId}`, {
     method: "DELETE",
   })
 
   if (!response?.ok) {
     toast({
       title: "Something went wrong.",
-      description: "Your product was not deleted. Please try again.",
+      description: "Your category was not deleted. Please try again.",
       variant: "destructive",
     })
   }
@@ -41,11 +41,11 @@ async function deleteProduct(productId: string) {
   return true
 }
 
-interface ProductOperationsProps {
-  product: Pick<Product, "id" | "name">
+interface CategoryOperationsProps {
+  category: Pick<Category, "id" | "name">
 }
 
-export function ProductOperations({ product }: ProductOperationsProps) {
+export function CategoryOperations({ category }: CategoryOperationsProps) {
   const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
@@ -59,7 +59,7 @@ export function ProductOperations({ product }: ProductOperationsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>
-            <Link href={`/dashboard/products/${product.id}`} className="flex w-full">
+            <Link href={`/dashboard/categories/${category.id}`} className="flex w-full">
               Edit
             </Link>
           </DropdownMenuItem>
@@ -76,7 +76,7 @@ export function ProductOperations({ product }: ProductOperationsProps) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to delete this product?
+              Are you sure you want to delete this category?
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone.
@@ -89,7 +89,7 @@ export function ProductOperations({ product }: ProductOperationsProps) {
                 event.preventDefault()
                 setIsDeleteLoading(true)
 
-                const deleted = await deleteProduct(product.id)
+                const deleted = await deleteCategory(category.id)
 
                 if (deleted) {
                   setIsDeleteLoading(false)
