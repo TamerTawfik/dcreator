@@ -49,7 +49,7 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <EmptyPlaceholder>
-            <EmptyPlaceholder.Icon name="post" />
+            <EmptyPlaceholder.Icon name="category" />
             <EmptyPlaceholder.Title>No categories created</EmptyPlaceholder.Title>
             <EmptyPlaceholder.Description>
               You don&apos;t have any categories yet. Start creating content.
