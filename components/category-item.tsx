@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { CategoryOperations } from "@/components/category-operations"
 
 interface CategoryItemProps {
-  category: Pick<Category, "id" | "name" |  "createdAt">
+  category: Pick<Category, "id" | "name" | "createdAt">
 }
 
 export function CategoryItem({ category }: CategoryItemProps) {
@@ -14,12 +14,12 @@ export function CategoryItem({ category }: CategoryItemProps) {
     <div className="flex items-center justify-between p-4">
       <div className="grid gap-1">
         <Link
-          href={`/dashboard/products/${category.id}`}
+          href={`/dashboard/categories/${category.id}`}
           className="font-semibold hover:underline"
         >
           {category.name}
         </Link>
-        <div>     
+        <div>
           <p className="text-sm text-muted-foreground">
             {formatDate(category.createdAt?.toDateString())}
           </p>
