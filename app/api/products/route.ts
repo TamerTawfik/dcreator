@@ -1,69 +1,91 @@
 import { getServerSession } from "next-auth/next"
-import * as z from "zod"
+import { NextResponse } from 'next/server';
 
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 
-const productCreateSchema = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-})
-
-export async function GET() {
+export async function POST(
+  req: Request,
+) {
   try {
     const session = await getServerSession(authOptions)
 
-    if (!session) {
-      return new Response("Unauthorized", { status: 403 })
-    }
+    const body = await req.json();
 
-    const { user } = session
-    const products = await db.product.findMany({
-      select: {
-        id: true,
-        name: true,
-        published: true,
-        createdAt: true,
-      },
-      where: {
-        authorId: user.id,
-      },
-    })
-
-    return new Response(JSON.stringify(products))
-  } catch (error) {
-    return new Response(null, { status: 500 })
-  }
-}
-
-export async function POST(req: Request) {
-  try {
-    const session = await getServerSession(authOptions)
+    const { name, price, categoryId, images, isFeatured, isArchived } = body;
 
     if (!session) {
-      return new Response("Unauthorized", { status: 403 })
+      return new NextResponse("Unauthenticated", { status: 403 });
     }
+
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
+    }
+
+    if (!images || !images.length) {
+      return new NextResponse("Images are required", { status: 400 });
+    }
+
+    if (!price) {
+      return new NextResponse("Price is required", { status: 400 });
+    }
+
+    if (!categoryId) {
+      return new NextResponse("Category id is required", { status: 400 });
+    }
+
     
-    const json = await req.json()
-    const body = productCreateSchema.parse(json)
 
     const product = await db.product.create({
       data: {
-        name: body.name,
-        description: body.description,
-        authorId: session.user.id,
+        name,
+        price,
+        isFeatured,
+        isArchived,
+        categoryId,
+        images: {
+          createMany: {
+            data: [
+              ...images.map((image: { url: string }) => image),
+            ],
+          },
+        },
       },
-      select: {
-        id: true,
-      },
-    })
-
-    return new Response(JSON.stringify(product))
+    });
+  
+    return NextResponse.json(product);
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return new Response(JSON.stringify(error.issues), { status: 422 })
-    }
-
-    return new Response(null, { status: 500 })
+    console.log('[PRODUCTS_POST]', error);
+    return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
+
+export async function GET(
+  req: Request,
+) {
+  try {
+    const { searchParams } = new URL(req.url)
+    const categoryId = searchParams.get('categoryId') || undefined;
+    const isFeatured = searchParams.get('isFeatured');
+
+    const products = await db.product.findMany({
+      where: {
+        categoryId,
+        isFeatured: isFeatured ? true : undefined,
+        isArchived: false,
+      },
+      include: {
+        images: true,
+        category: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      }
+    });
+  
+    return NextResponse.json(products);
+  } catch (error) {
+    console.log('[PRODUCTS_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};

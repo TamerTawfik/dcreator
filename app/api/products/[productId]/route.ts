@@ -1,93 +1,133 @@
-import { getServerSession } from "next-auth"
-import * as z from "zod"
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next"
 
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { productPatchSchema } from "@/lib/validations/product"
 
-const routeContextSchema = z.object({
-  params: z.object({
-    productId: z.string(),
-  }),
-})
+export async function GET(
+  req: Request,
+  { params }: { params: { productId: string } }
+) {
+  try {
+    if (!params.productId) {
+      return new NextResponse("Product id is required", { status: 400 });
+    }
+
+    const product = await db.product.findUnique({
+      where: {
+        id: params.productId
+      },
+      include: {
+        images: true,
+        category: true,
+      }
+    });
+  
+    return NextResponse.json(product);
+  } catch (error) {
+    console.log('[PRODUCT_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};
 
 export async function DELETE(
   req: Request,
-  context: z.infer<typeof routeContextSchema>
+  { params }: { params: { productId: string} }
 ) {
   try {
-    // Validate the route params.
-    const { params } = routeContextSchema.parse(context)
+    const session = await getServerSession(authOptions)
 
-    // Check if the user has access to this post.
-    if (!(await verifyCurrentUserHasAccessToPost(params.productId))) {
-      return new Response(null, { status: 403 })
+    if (!session) {
+      return new NextResponse("Unauthenticated", { status: 403 });
     }
 
-    // Delete the post.
-    await db.product.delete({
+    if (!params.productId) {
+      return new NextResponse("Product id is required", { status: 400 });
+    }
+
+    const product = await db.product.delete({
       where: {
-        id: params.productId as string,
+        id: params.productId
       },
-    })
-
-    return new Response(null, { status: 204 })
+    });
+  
+    return NextResponse.json(product);
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return new Response(JSON.stringify(error.issues), { status: 422 })
-    }
-
-    return new Response(null, { status: 500 })
+    console.log('[PRODUCT_DELETE]', error);
+    return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
+
 
 export async function PATCH(
   req: Request,
-  context: z.infer<typeof routeContextSchema>
+  { params }: { params: { productId: string, storeId: string } }
 ) {
   try {
-    // Validate route params.
-    const { params } = routeContextSchema.parse(context)
+    const session = await getServerSession(authOptions)
 
-    // Check if the user has access to this post.
-    if (!(await verifyCurrentUserHasAccessToPost(params.productId))) {
-      return new Response(null, { status: 403 })
+    const body = await req.json();
+
+    const { name, price, categoryId, images, isFeatured, isArchived } = body;
+
+    if (!session) {
+      return new NextResponse("Unauthenticated", { status: 403 });
     }
 
-    // Get the request body and validate it.
-    const json = await req.json()
-    const body = productPatchSchema.parse(json)
+    if (!params.productId) {
+      return new NextResponse("Product id is required", { status: 400 });
+    }
 
-    // Update the product.
-    // TODO: Implement sanitization for content.
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
+    }
+
+    if (!images || !images.length) {
+      return new NextResponse("Images are required", { status: 400 });
+    }
+
+    if (!price) {
+      return new NextResponse("Price is required", { status: 400 });
+    }
+
+    if (!categoryId) {
+      return new NextResponse("Category id is required", { status: 400 });
+    }
+
     await db.product.update({
       where: {
-        id: params.productId,
+        id: params.productId
       },
       data: {
-        name: body.name,
-        description: body.description,
+        name,
+        price,
+        categoryId,
+        images: {
+          deleteMany: {},
+        },
+        isFeatured,
+        isArchived,
+      },
+    });
+
+    const product = await db.product.update({
+      where: {
+        id: params.productId
+      },
+      data: {
+        images: {
+          createMany: {
+            data: [
+              ...images.map((image: { url: string }) => image),
+            ],
+          },
+        },
       },
     })
-
-    return new Response(null, { status: 200 })
+  
+    return NextResponse.json(product);
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return new Response(JSON.stringify(error.issues), { status: 422 })
-    }
-
-    return new Response(null, { status: 500 })
+    console.log('[PRODUCT_PATCH]', error);
+    return new NextResponse("Internal error", { status: 500 });
   }
-}
-
-async function verifyCurrentUserHasAccessToPost(productId: string) {
-  const session = await getServerSession(authOptions)
-  const count = await db.product.count({
-    where: {
-      id: productId,
-      authorId: session?.user.id,
-    },
-  })
-
-  return count > 0
-}
+};
