@@ -22,9 +22,6 @@ export default async function DashboardPage() {
   }
 
   const products = await db.product.findMany({
-    where: {
-      authorId: user.id,
-    },
     select: {
       id: true,
       name: true,
