@@ -34,7 +34,7 @@ export async function POST(
       return new NextResponse("Category id is required", { status: 400 });
     }
 
-    
+    const userId = session?.user?.id
 
     const product = await db.product.create({
       data: {
@@ -43,6 +43,7 @@ export async function POST(
         isFeatured,
         isArchived,
         categoryId,
+        author: userId,
         images: {
           createMany: {
             data: [
