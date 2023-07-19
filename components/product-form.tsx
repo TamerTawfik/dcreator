@@ -28,6 +28,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ImageUpload from "@/components/image-upload"
 import { Checkbox } from "@/components/ui/checkbox"
 
+import { UploadButton } from "@/lib/uploadthing";
+
 const formSchema = z.object({
   name: z.string().min(1),
   images: z.object({ url: z.string() }).array(),
@@ -250,6 +252,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               )}
             />
           </div>
+          <UploadButton
+        endpoint="fileUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>
