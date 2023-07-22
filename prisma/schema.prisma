@@ -85,28 +85,11 @@ model Product {
   category    Category? @relation("CategoryToProduct", fields: [categoryId], references: [id])
 
   images     Image[] // Relation to Image model
+  files      File[] // Relation to File model
   orderItems OrderItem[] // Relation to Order model
-  versions   Version[] // One-to-many relationship with Version
 
   @@index([categoryId])
   @@map(name: "products")
-}
-
-model Version {
-  id          String   @id @default(cuid())
-  productId   String
-  product     Product  @relation(fields: [productId], references: [id])
-  name        String
-  license     String
-  description String?
-  price       Decimal?
-  fileKey     String // Unique identifier for the file 
-  fileSize    Int? // Size of the file in bytes 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([productId])
-  @@map(name: "versions")
 }
 
 model Category {
@@ -132,6 +115,18 @@ model Image {
 
   @@index([productId])
   @@map(name: "images")
+}
+
+model File {
+  id        String   @id @default(uuid())
+  productId String // Foreign Key to Product
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String // URL of the image
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+  @@map(name: "files")
 }
 
 model Order {

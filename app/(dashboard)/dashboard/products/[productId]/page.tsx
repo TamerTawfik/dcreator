@@ -16,6 +16,7 @@ const ProductPage = async ({
     },
     include: {
       images: true,
+      files: true,
     }
   });
 

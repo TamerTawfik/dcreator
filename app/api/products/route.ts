@@ -12,7 +12,7 @@ export async function POST(
 
     const body = await req.json();
 
-    const { name, price, categoryId, images, isFeatured, isArchived } = body;
+    const { name, price, categoryId, images, files, isFeatured, isArchived } = body;
 
     if (!session) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -49,6 +49,13 @@ export async function POST(
             ],
           },
         },
+        files: {
+          createMany: {
+            data: [
+              ...files.map((file: { url: string }) => file),
+            ],
+          },
+        },
       },
     });
 
@@ -75,6 +82,7 @@ export async function GET(
       },
       include: {
         images: true,
+        files: true,
         category: true,
       },
       orderBy: {

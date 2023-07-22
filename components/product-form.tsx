@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { Trash } from "lucide-react"
-import { Category,  Product, Image } from "@prisma/client"
+import { Category,  Product, Image, File } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -29,10 +29,13 @@ import ImageUpload from "@/components/image-upload"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { UploadButton } from "@/lib/uploadthing";
+import "@uploadthing/react/styles.css";
+import Link from "next/link"
 
 const formSchema = z.object({
   name: z.string().min(1),
   images: z.object({ url: z.string() }).array(),
+  files: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
@@ -43,7 +46,8 @@ type ProductFormValues = z.infer<typeof formSchema>
 
 interface ProductFormProps {
   initialData: Product & {
-    images: Image[]
+    images: Image[],
+    files: File[]
   } | null;
   categories: Category[];
 };
@@ -58,6 +62,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [files, setFiles] = useState<{
+    fileUrl: string;
+    fileKey: string;
+}[]>([])
+
   const title = initialData ? 'Edit product' : 'Create product';
   const description = initialData ? 'Edit a product.' : 'Add a new product';
   const toastMessage = initialData ? 'Product updated.' : 'Product created.';
@@ -69,6 +78,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   } : {
     name: '',
     images: [],
+    files: [],
     price: 0,
     categoryId: '',
     isFeatured: false,
@@ -252,18 +262,44 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               )}
             />
           </div>
-          <UploadButton
-        endpoint="fileUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
+          <FormField
+            control={form.control}
+            name="files"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Files</FormLabel>
+                <FormControl>
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      if (res) {
+                          setFiles(res)
+                          const json = JSON.stringify(res)
+                          // Do something with the response
+                          console.log(json);
+                      }
+                      //alert("Upload Completed");
+                  }}
+                  onUploadError={(error: Error) => {
+                      // Do something with the error.
+                      alert(`ERROR! ${error.message}`);
+                  }}
+                  />
+                              <ul>
+                {files.map(file => (
+                    <li key={file.fileUrl} className="mt-2">
+                        <Link href={file.fileUrl} target="_blank">
+                            {file.fileUrl}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>

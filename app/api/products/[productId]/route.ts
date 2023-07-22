@@ -19,6 +19,7 @@ export async function GET(
       },
       include: {
         images: true,
+        files: true,
         category: true,
       }
     });
@@ -61,14 +62,14 @@ export async function DELETE(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { productId: string, storeId: string } }
+  { params }: { params: { productId: string } }
 ) {
   try {
     const session = await getServerSession(authOptions)
 
     const body = await req.json();
 
-    const { name, price, categoryId, images, isFeatured, isArchived } = body;
+    const { name, price, categoryId, images, files, isFeatured, isArchived } = body;
 
     if (!session) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -105,6 +106,9 @@ export async function PATCH(
         images: {
           deleteMany: {},
         },
+        files: {
+          deleteMany: {},
+        },
         isFeatured,
         isArchived,
       },
@@ -119,6 +123,13 @@ export async function PATCH(
           createMany: {
             data: [
               ...images.map((image: { url: string }) => image),
+            ],
+          },
+        },
+        files: {
+          createMany: {
+            data: [
+              ...files.map((file: { url: string }) => file),
             ],
           },
         },
