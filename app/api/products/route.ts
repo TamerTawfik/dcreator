@@ -26,6 +26,10 @@ export async function POST(
       return new NextResponse("Images are required", { status: 400 });
     }
 
+    if (!files || !files.length) {
+      return new NextResponse("Files are required", { status: 400 });
+    }
+
     if (!price) {
       return new NextResponse("Price is required", { status: 400 });
     }

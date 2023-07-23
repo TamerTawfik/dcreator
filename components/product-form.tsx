@@ -26,11 +26,9 @@ import { Heading } from "@/components/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ImageUpload from "@/components/image-upload"
+import FileUpload from "@/components/file-upload"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { UploadButton } from "@/lib/uploadthing";
-import "@uploadthing/react/styles.css";
-import Link from "next/link"
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -62,10 +60,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [files, setFiles] = useState<{
-    fileUrl: string;
-    fileKey: string;
-}[]>([])
 
   const title = initialData ? 'Edit product' : 'Create product';
   const description = initialData ? 'Edit a product.' : 'Add a new product';
@@ -269,31 +263,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               <FormItem>
                 <FormLabel>Files</FormLabel>
                 <FormControl>
-                  <UploadButton
-                    endpoint="fileUploader"
-                    onClientUploadComplete={(res) => {
-                      if (res) {
-                          setFiles(res)
-                          const json = JSON.stringify(res)
-                          // Do something with the response
-                          console.log(json);
-                      }
-                      //alert("Upload Completed");
-                  }}
-                  onUploadError={(error: Error) => {
-                      // Do something with the error.
-                      alert(`ERROR! ${error.message}`);
-                  }}
+                  <FileUpload 
+                    value={field.value.map((file) => file.url)} 
+                    disabled={loading} 
+                    onChange={(url) => field.onChange([...field.value, { url }])}
+                    onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                   />
-                              <ul>
-                {files.map(file => (
-                    <li key={file.fileUrl} className="mt-2">
-                        <Link href={file.fileUrl} target="_blank">
-                            {file.fileUrl}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
                 </FormControl>
                 <FormMessage />
               </FormItem>
