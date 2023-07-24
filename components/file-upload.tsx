@@ -33,7 +33,8 @@ const FileUpload: React.FC<FileUploadProps> = ({
   }, []);
 
   const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+    console.log(result)
+    onChange(result);
   };
 
   if (!isMounted) {
@@ -76,6 +77,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                     onClientUploadComplete={(res) => {
                       if (res) {
                           setFiles(res)
+                          onUpload(files.map(file => file.fileUrl))
                           const json = JSON.stringify(res)
                           // Do something with the response
                           console.log(json);
