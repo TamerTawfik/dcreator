@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ImagePlus, Trash } from 'lucide-react';
+import { Console } from 'console';
 
 interface ImageUploadProps {
   disabled?: boolean;
@@ -27,6 +28,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   }, []);
 
   const onUpload = (result: any) => {
+    console.log(result.info.secure_url)
     onChange(result.info.secure_url);
   };
 
@@ -34,7 +36,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     return null;
   }
 
-  return ( 
+  return (
     <div>
       <div className="mb-4 flex items-center gap-4">
         {value.map((url) => (
@@ -60,10 +62,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           };
 
           return (
-            <Button 
-              type="button" 
-              disabled={disabled} 
-              variant="secondary" 
+            <Button
+              type="button"
+              disabled={disabled}
+              variant="secondary"
               onClick={onClick}
             >
               <ImagePlus className="h-4 w-4 mr-2" />
@@ -75,5 +77,5 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     </div>
   );
 }
- 
+
 export default ImageUpload;

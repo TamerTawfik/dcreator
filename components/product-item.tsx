@@ -21,8 +21,8 @@ export function ProductItem({ product }: ProductItemProps) {
         </Link>
         <div>
           <p className="text-sm text-muted-foreground">
-            {product.isArchived ? "Archived" : "Not Archived"}
-          </p>        
+            {product.isArchived ? "Archived" : ""}
+          </p>
           <p className="text-sm text-muted-foreground">
             {formatDate(product.createdAt?.toDateString())}
           </p>

@@ -26,7 +26,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const [files, setFiles] = useState<{
     fileUrl: string;
     fileKey: string;
-}[]>([])
+  }[]>([])
 
   useEffect(() => {
     setIsMounted(true);
@@ -43,20 +43,20 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   const fileList = (
     <>
-        <ul>
-            {files.map(file => (
-                <li key={file.fileUrl} className="mt-2">
-                    <Link href={file.fileUrl} target="_blank">
-                        {file.fileUrl}
-                    </Link>
-                </li>
-            ))}
-        </ul>
+      <ul>
+        {files.map(file => (
+          <li key={file.fileUrl} className="mt-2">
+            <Link href={file.fileUrl} target="_blank">
+              {file.fileUrl}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </>
-)
-  
+  )
 
-  return ( 
+
+  return (
     <div>
       <div className="mb-4 flex items-center gap-4">
         {value.map((url) => (
@@ -68,30 +68,35 @@ const FileUpload: React.FC<FileUploadProps> = ({
             </div>
             <Link
               href={url}
-            />
+            >
+              {url}
+            </Link>
           </div>
         ))}
       </div>
       <UploadButton
-                    endpoint="fileUploader"
-                    onClientUploadComplete={(res) => {
-                      if (res) {
-                          setFiles(res)
-                          onUpload(files.map(file => file.fileUrl))
-                          const json = JSON.stringify(res)
-                          // Do something with the response
-                          console.log(json);
-                      }
-                      //alert("Upload Completed");
-                  }}
-                  onUploadError={(error: Error) => {
-                      // Do something with the error.
-                      alert(`ERROR! ${error.message}`);
-                  }}
-                  />
-                  {fileList}
+        endpoint="fileUploader"
+        onClientUploadComplete={(res) => {
+          if (res) {
+            setFiles(res)
+            const uploaded = files.map(file => file.fileUrl)
+            const theFile = uploaded[0]
+            console.log(theFile)
+            onUpload(theFile)
+            const json = JSON.stringify(res)
+            // Do something with the response
+            console.log(json);
+          }
+          //alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
+      {fileList}
     </div>
   );
 }
- 
+
 export default FileUpload;
