@@ -23,7 +23,7 @@ export async function GET(
         category: true,
       }
     });
-  
+
     return NextResponse.json(product);
   } catch (error) {
     console.log('[PRODUCT_GET]', error);
@@ -33,7 +33,7 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { productId: string} }
+  { params }: { params: { productId: string } }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -51,7 +51,7 @@ export async function DELETE(
         id: params.productId
       },
     });
-  
+
     return NextResponse.json(product);
   } catch (error) {
     console.log('[PRODUCT_DELETE]', error);
@@ -69,7 +69,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { name, price, categoryId, images, files, isFeatured, isArchived } = body;
+    const { name, description, price, categoryId, images, files, isFeatured, isArchived } = body;
 
     if (!session) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -101,6 +101,7 @@ export async function PATCH(
       },
       data: {
         name,
+        description,
         price,
         categoryId,
         images: {
@@ -135,7 +136,7 @@ export async function PATCH(
         },
       },
     })
-  
+
     return NextResponse.json(product);
   } catch (error) {
     console.log('[PRODUCT_PATCH]', error);

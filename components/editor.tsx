@@ -67,22 +67,23 @@ export function Editor({ value, onChange }: EditorProps) {
   }, [isMounted, initializeEditor])
 
   const onDataUpdate = (result: any) => {
-    onChange(result);
+    console.log(result)
+    onChange(result.blocks);
   };
 
-  
+
   return (
-      <div className="grid w-full gap-10">
-        <div className="prose prose-stone mx-auto w-[800px] dark:prose-invert">
-          <div id="editor" className="min-h-[500px]" />
-          <p className="text-sm text-gray-500">
-            Use{" "}
-            <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">
-              Tab
-            </kbd>{" "}
-            to open the command menu.
-          </p>
-        </div>
+    <div className="grid w-full gap-10">
+      <div className="prose prose-stone mx-auto w-[800px] dark:prose-invert">
+        <div id="editor" className="min-h-[500px]" />
+        <p className="text-sm text-gray-500">
+          Use{" "}
+          <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">
+            Tab
+          </kbd>{" "}
+          to open the command menu.
+        </p>
       </div>
+    </div>
   )
 }

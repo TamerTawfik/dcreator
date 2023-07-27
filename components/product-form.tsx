@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { Edit, Trash } from "lucide-react"
-import { Category,  Product, Image, File } from "@prisma/client"
+import { Category, Product, Image, File } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -28,7 +28,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ImageUpload from "@/components/image-upload"
 import FileUpload from "@/components/file-upload"
 import { Checkbox } from "@/components/ui/checkbox"
-import {Editor} from "./editor"
+import { Editor } from "./editor"
 
 
 const formSchema = z.object({
@@ -122,13 +122,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   return (
     <>
-    <AlertModal 
-      isOpen={open} 
-      onClose={() => setOpen(false)}
-      onConfirm={onDelete}
-      loading={loading}
-    />
-     <div className="flex items-center justify-between">
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
+      <div className="flex items-center justify-between">
         <Heading title={title} description={info} />
         {initialData && (
           <Button
@@ -151,9 +151,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               <FormItem>
                 <FormLabel>Images</FormLabel>
                 <FormControl>
-                  <ImageUpload 
-                    value={field.value.map((image) => image.url)} 
-                    disabled={loading} 
+                  <ImageUpload
+                    value={field.value.map((image) => image.url)}
+                    disabled={loading}
                     onChange={(url) => field.onChange([...field.value, { url }])}
                     onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                   />
@@ -211,7 +211,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="isFeatured"
@@ -266,9 +266,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               <FormItem>
                 <FormLabel>Files</FormLabel>
                 <FormControl>
-                  <FileUpload 
-                    value={field.value.map((file) => file.url)} 
-                    disabled={loading} 
+                  <FileUpload
+                    value={field.value.map((file) => file.url)}
+                    disabled={loading}
                     onChange={(url) => field.onChange([...field.value, { url }])}
                     onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                   />
@@ -277,24 +277,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               </FormItem>
             )}
           />
-           <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    {/* <Input disabled={loading} placeholder="Product name" {...field} /> */}
-                    <Editor
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  {/* <Input disabled={loading} placeholder="Product name" {...field} /> */}
+                  <Editor
                     value={field.value}
-                    onChange={(text) => field.onChange([...field.value, {text}])} 
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          
+                    onChange={(event) => field.onChange([...field.value, { event }])}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>
