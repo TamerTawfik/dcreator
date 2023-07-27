@@ -6,7 +6,7 @@ import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { Trash } from "lucide-react"
+import { Edit, Trash } from "lucide-react"
 import { Category,  Product, Image, File } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 
@@ -28,10 +28,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ImageUpload from "@/components/image-upload"
 import FileUpload from "@/components/file-upload"
 import { Checkbox } from "@/components/ui/checkbox"
+import {Editor} from "./editor"
 
 
 const formSchema = z.object({
   name: z.string().min(1),
+  description: z.any().optional(),
   images: z.object({ url: z.string() }).array(),
   files: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
@@ -62,7 +64,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
 
   const title = initialData ? 'Edit product' : 'Create product';
-  const description = initialData ? 'Edit a product.' : 'Add a new product';
+  const info = initialData ? 'Edit a product.' : 'Add a new product';
   const toastMessage = initialData ? 'Product updated.' : 'Product created.';
   const action = initialData ? 'Save changes' : 'Create';
 
@@ -71,6 +73,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     price: parseFloat(String(initialData?.price)),
   } : {
     name: '',
+    description: {},
     images: [],
     files: [],
     price: 0,
@@ -126,7 +129,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       loading={loading}
     />
      <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
+        <Heading title={title} description={info} />
         {initialData && (
           <Button
             disabled={loading}
@@ -226,7 +229,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       Featured
                     </FormLabel>
                     <FormDescription>
-                      This product will appear on the home page
+                      This product will appear first
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -274,6 +277,23 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               </FormItem>
             )}
           />
+           <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    {/* <Input disabled={loading} placeholder="Product name" {...field} /> */}
+                    <Editor
+                    value={field.value}
+                    onChange={(text) => field.onChange([...field.value, {text}])} 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
