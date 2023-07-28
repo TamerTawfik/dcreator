@@ -37,6 +37,7 @@ export function Editor({ value, onChange }: EditorProps) {
         data: value,
         onChange: (api, data) => {
           // Call the onChange function passed from the parent
+          console.log(data)
           onChange(data);
         },
         tools: {
