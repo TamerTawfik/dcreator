@@ -67,7 +67,7 @@ export function Editor({ value, onChange }: EditorProps) {
   }, [isMounted, initializeEditor])
 
   const onDataUpdate = (result: any) => {
-    console.log(result)
+    console.log(result.blocks)
     onChange(result.blocks);
   };
 
