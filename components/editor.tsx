@@ -7,7 +7,7 @@ import "@/styles/editor.css"
 
 interface EditorProps {
   value: any,
-  onChange: (value: string) => void;
+  onChange: (value: any) => void;
 }
 
 
@@ -35,7 +35,10 @@ export function Editor({ value, onChange }: EditorProps) {
         placeholder: "Type here to write your description...",
         inlineToolbar: true,
         data: value,
-        onChange: onDataUpdate,
+        onChange: (api, data) => {
+          // Call the onChange function passed from the parent
+          onChange(data);
+        },
         tools: {
           header: Header,
           linkTool: LinkTool,
@@ -47,7 +50,7 @@ export function Editor({ value, onChange }: EditorProps) {
         },
       })
     }
-  }, [value])
+  }, [onChange, value])
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -66,10 +69,10 @@ export function Editor({ value, onChange }: EditorProps) {
     }
   }, [isMounted, initializeEditor])
 
-  const onDataUpdate = (result: any) => {
-    console.log(result.blocks)
-    onChange(result.blocks);
-  };
+  // const onDataUpdate = (result: any) => {
+  //   console.log(result.blocks)
+  //   onChange(result.blocks);
+  // };
 
 
   return (

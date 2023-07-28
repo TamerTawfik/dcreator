@@ -287,7 +287,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   {/* <Input disabled={loading} placeholder="Product name" {...field} /> */}
                   <Editor
                     value={field.value}
-                    onChange={(event) => field.onChange([...field.value, { event }])}
+                    onChange={field.onChange}
                   />
                 </FormControl>
                 <FormMessage />
