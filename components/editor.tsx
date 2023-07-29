@@ -51,7 +51,7 @@ export function Editor({ value, onChange }: EditorProps) {
         },
       })
     }
-  }, [onChange, value])
+  }, [])
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -69,11 +69,6 @@ export function Editor({ value, onChange }: EditorProps) {
       }
     }
   }, [isMounted, initializeEditor])
-
-  // const onDataUpdate = (result: any) => {
-  //   console.log(result.blocks)
-  //   onChange(result.blocks);
-  // };
 
 
   return (

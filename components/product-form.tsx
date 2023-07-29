@@ -273,6 +273,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                   />
                 </FormControl>
+                <FormDescription>
+                  upload the Downloadable File for Digital Product.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
