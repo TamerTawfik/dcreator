@@ -35,10 +35,10 @@ export function Editor({ value, onChange }: EditorProps) {
         placeholder: "Type here to write your description...",
         inlineToolbar: true,
         data: value,
-        onChange: (api, data) => {
-          // Call the onChange function passed from the parent
-          console.log(data)
-          onChange(data);
+        onChange: (api) => {
+          api.saver.save().then((outputData) => {
+            onChange(outputData);
+          });
         },
         tools: {
           header: Header,
