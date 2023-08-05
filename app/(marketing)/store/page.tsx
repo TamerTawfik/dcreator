@@ -6,11 +6,6 @@ export const revalidate = 0;
 
 const StorePage = async () => {
     const products = await db.product.findMany({
-      select: {
-        id: true,
-        name: true,
-        price: true,
-      },
         include: {
           images: true,
           category: true,
