@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { GridTileImage } from '@/components/grid-tile-image';
 import ProductList from "@/components/ui/product-list";
 import { Gallery } from '@/components/gallery';
-import ProductInfo from 'components/product-info';
+import ProductInfo from '@/components/product-info';
+import ProductDescription from "@/components/product-description"
 import Link from 'next/link';
 import { db } from "@/lib/db"
 
@@ -32,6 +32,9 @@ export default async function ProductPage({ params }: { params: { handle: string
                 src: image.url,
               }))}
             />
+            <div>
+              <ProductDescription description={product.description} />
+            </div>
           </div>
 
           <div className="basis-full lg:basis-2/6 ml-8">
