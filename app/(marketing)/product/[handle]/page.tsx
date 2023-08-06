@@ -37,7 +37,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             </div>
           </div>
 
-          <div className="basis-full lg:basis-2/6 ml-8">
+          <div className="basis-full lg:basis-2/6 ml-8 pt-16">
             <ProductInfo product={product} />
           </div>
         </div>

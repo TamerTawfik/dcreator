@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import Currency  from "./currency";
+import Currency from "./currency";
 import { Product } from "@/types";
 
 interface ProductCard {
@@ -19,14 +19,14 @@ const ProductCard: React.FC<ProductCard> = ({
     router.push(`/product/${data?.id}`);
   };
 
-  
-  return ( 
-    <div onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+
+  return (
+    <div onClick={handleClick} className="bg-white dark:bg-black group cursor-pointer rounded-xl border p-3 space-y-4">
       {/* Image & actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
-        <Image 
-          src={data.images?.[0]?.url} 
-          alt="" 
+        <Image
+          src={data.images?.[0]?.url}
+          alt=""
           fill
           className="aspect-square object-cover rounded-md"
         />
@@ -35,8 +35,8 @@ const ProductCard: React.FC<ProductCard> = ({
       </div>
       {/* Description */}
       <div>
-        <p className="font-semibold text-lg">{data.name}</p>
-        <p className="text-sm text-gray-500">{data.category?.name}</p>
+        <p className="font-semibold text-lg dark:text-white">{data.name}</p>
+        <p className="text-sm text-gray-500 dark:text-white">{data.category?.name}</p>
       </div>
       {/* Price & Reiew */}
       <div className="flex items-center justify-between">
