@@ -1,16 +1,36 @@
-import { getToken } from 'next-auth/jwt'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+// Ref: https://next-auth.js.org/configuration/nextjs#advanced-usage
+import { withAuth, NextRequestWithAuth } from "next-auth/middleware"
+import { NextResponse } from "next/server"
 
-export async function middleware(req: NextRequest) {
-  const token = await getToken({ req })
+export default withAuth(
+    // `withAuth` augments your `Request` with the user's token.
+    function middleware(request: NextRequestWithAuth) {
+        // console.log(request.nextUrl.pathname)
+        // console.log(request.nextauth.token)
 
-  if (!token) {
-    return NextResponse.redirect(new URL('/', req.nextUrl))
-  }
-}
+        if (request.nextUrl.pathname.startsWith("/dashboard")
+            && request.nextauth.token?.role !== "admin") {
+            return NextResponse.rewrite(
+                new URL("/", request.url)
+            )
+        }
+
+        if (request.nextUrl.pathname.startsWith("/profile")
+            && request.nextauth.token?.role !== "admin"
+            && request.nextauth.token?.role !== "user") {
+            return NextResponse.rewrite(
+                new URL("/", request.url)
+            )
+        }
+    },
+    {
+        callbacks: {
+            authorized: ({ token }) => !!token
+        },
+    }
+)
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/dashboard/:path*", "/editor/:path*", ],
+  matcher: ["/dashboard/:path*", "/profile/:path*", ],
 }
