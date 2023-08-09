@@ -3,7 +3,7 @@ import { Product } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ProductOperations } from "@/components/product-operations"
+import { ProductOperations } from "@/components/dashboard/product-operations"
 
 interface ProductItemProps {
   product: Pick<Product, "id" | "name" | "isArchived" | "createdAt">

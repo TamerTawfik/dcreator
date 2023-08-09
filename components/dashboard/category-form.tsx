@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Separator } from "@/components/ui/separator"
-import { Heading } from "@/components/heading"
+import { Heading } from "@/components/dashboard/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 

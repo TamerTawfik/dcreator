@@ -3,7 +3,7 @@ import { Category } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
-import { CategoryOperations } from "@/components/category-operations"
+import { CategoryOperations } from "@/components/dashboard/category-operations"
 
 interface CategoryItemProps {
   category: Pick<Category, "id" | "name" | "createdAt">
