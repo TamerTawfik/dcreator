@@ -3,11 +3,11 @@ import { redirect } from "next/navigation"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
-import { EmptyPlaceholder } from "@/components/empty-placeholder"
-import { DashboardHeader } from "@/components/header"
-import { ProductCreateButton } from "@/components/product-create-button"
-import { ProductItem } from "@/components/product-item"
-import { DashboardShell } from "@/components/shell"
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { ProductCreateButton } from "@/components/dashboard/product-create-button"
+import { ProductItem } from "@/components/dashboard/product-item"
+import { DashboardShell } from "@/components/dashboard/shell"
 
 export const metadata = {
   title: "Products",

@@ -2,8 +2,8 @@ import { redirect } from "next/navigation"
 
 import { authOptions } from "@/lib/auth"
 import { getCurrentUser } from "@/lib/session"
-import { DashboardHeader } from "@/components/header"
-import { DashboardShell } from "@/components/shell"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { DashboardShell } from "@/components/dashboard/shell"
 // import { UserNameForm } from "@/components/user-name-form"
 
 export const metadata = {

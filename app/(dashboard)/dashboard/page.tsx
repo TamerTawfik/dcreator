@@ -1,6 +1,6 @@
 
-import { DashboardHeader } from "@/components/header"
-import { DashboardShell } from "@/components/shell"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { DashboardShell } from "@/components/dashboard/shell"
 
 export const metadata = {
   title: "Dashboard",

@@ -17,7 +17,7 @@ export default withAuth(
 
         if (request.nextUrl.pathname.startsWith("/profile")
             && request.nextauth.token?.role !== "admin"
-            && request.nextauth.token?.role !== "user") {
+            && request.nextauth.token?.role !== "customer") {
             return NextResponse.rewrite(
                 new URL("/", request.url)
             )

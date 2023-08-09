@@ -1,5 +1,5 @@
-import ProductList from "@/components/ui/product-list";
-import Container from "@/components/ui/container";
+import ProductList from "@/components/product/product-list";
+import Container from "@/components/product/container";
 import { db } from "@/lib/db"
 
 export const revalidate = 0;

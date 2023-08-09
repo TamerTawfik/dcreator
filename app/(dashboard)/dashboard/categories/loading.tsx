@@ -1,7 +1,7 @@
-import { DashboardHeader } from "@/components/header"
-import { CategoryCreateButton } from "@/components/category-create-button"
-import { CategoryItem } from "@/components/category-item"
-import { DashboardShell } from "@/components/shell"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { CategoryCreateButton } from "@/components/dashboard/category-create-button"
+import { CategoryItem } from "@/components/dashboard/category-item"
+import { DashboardShell } from "@/components/dashboard/shell"
 
 export default function DashboardLoading() {
   return (

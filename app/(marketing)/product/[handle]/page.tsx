@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import ProductList from "@/components/ui/product-list";
-import { Gallery } from '@/components/gallery';
-import ProductInfo from '@/components/product-info';
-import ProductDescription from "@/components/product-description"
+import ProductList from "@/components/product/product-list";
+import { Gallery } from '@/components/product/gallery';
+import ProductInfo from '@/components/product/product-info';
+import ProductDescription from "@/components/product/product-description"
 import Link from 'next/link';
 import { db } from "@/lib/db"
 

@@ -7,7 +7,7 @@ export const siteConfig: SiteConfig = {
   url: "",
   ogImage: "",
   links: {
-    twitter: "https://twitter.com/",
-    github: "https://github.com/",
+    twitter: "https://twitter.com/TamerTawfik_Me",
+    github: "https://github.com/TamerTawfik",
   },
 }

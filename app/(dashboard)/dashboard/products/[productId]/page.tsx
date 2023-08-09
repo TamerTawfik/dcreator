@@ -1,7 +1,7 @@
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 
-import { ProductForm } from "@/components/product-form";
+import { ProductForm } from "@/components/dashboard/product-form";
 
 const ProductPage = async ({
   params

@@ -1,7 +1,7 @@
-import { DashboardHeader } from "@/components/header"
-import { ProductCreateButton } from "@/components/product-create-button"
-import { ProductItem } from "@/components/product-item"
-import { DashboardShell } from "@/components/shell"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { ProductCreateButton } from "@/components/dashboard/product-create-button"
+import { ProductItem } from "@/components/dashboard/product-item"
+import { DashboardShell } from "@/components/dashboard/shell"
 
 export default function DashboardLoading() {
   return (

@@ -22,11 +22,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Separator } from "@/components/ui/separator"
-import { Heading } from "@/components/heading"
+import { Heading } from "@/components/dashboard/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import ImageUpload from "@/components/image-upload"
-import FileUpload from "@/components/file-upload"
+import ImageUpload from "@/components/dashboard/image-upload"
+import FileUpload from "@/components/dashboard/file-upload"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Editor } from "./editor"
 

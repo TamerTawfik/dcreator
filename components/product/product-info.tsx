@@ -2,7 +2,7 @@
 
 import { ShoppingCart } from "lucide-react";
 
-import Currency from "@/components/ui/currency";
+import Currency from "@/components/product/currency";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types";
 

@@ -3,11 +3,11 @@ import { redirect } from "next/navigation"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
-import { EmptyPlaceholder } from "@/components/empty-placeholder"
-import { DashboardHeader } from "@/components/header"
-import { CategoryCreateButton } from "@/components/category-create-button"
-import { CategoryItem } from "@/components/category-item"
-import { DashboardShell } from "@/components/shell"
+import { EmptyPlaceholder } from "@/components/dashboard/empty-placeholder"
+import { DashboardHeader } from "@/components/dashboard/header"
+import { CategoryCreateButton } from "@/components/dashboard/category-create-button"
+import { CategoryItem } from "@/components/dashboard/category-item"
+import { DashboardShell } from "@/components/dashboard/shell"
 
 export const metadata = {
   title: "Categories",
