@@ -1,5 +1,5 @@
 
-export default function FeaturesSection () {
+export default function StackSection () {
     return (
         <section
         id="features"
@@ -7,7 +7,7 @@ export default function FeaturesSection () {
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Features
+            Stack
           </h2>
           <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
           We are standing on the shoulders of giants by using open source software. This gives us the power and flexibility to build a high-quality app that can scale to meet the needs of our users.
