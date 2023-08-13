@@ -91,4 +91,11 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     image: string;
     imageDark: string;
   };
+
+  export type FAQ = {
+    id: number;
+    quest: string;
+    ans: string;
+  };
+  
   

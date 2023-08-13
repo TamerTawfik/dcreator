@@ -6,7 +6,7 @@ import FeaturesTabItem from "./features-tab-item";
 
 import { motion } from "framer-motion";
 
-export default function FeaturesTab ()  {
+export default function FeaturesTabSection ()  {
   const [currentTab, setCurrentTab] = useState("tabOne");
 
   return (
