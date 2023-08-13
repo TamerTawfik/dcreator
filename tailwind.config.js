@@ -70,10 +70,17 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        line: {
+          "0%, 100%": { transform: "translateY(100%)" },
+          "50%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        line1: "line 3s linear infinite",
+        line2: "line 6s linear infinite",
+        line3: "line 9s linear infinite",
       },
     },
   },
