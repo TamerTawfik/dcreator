@@ -9,6 +9,7 @@ import OpensourceSection from "@/components/marketing/opensource/opensource-sect
 import FeaturesTabSection from "@/components/marketing/featuresTab"
 import FAQSection from "@/components/marketing/faq"
 import Lines from "@/components/marketing/lines"
+import ScrollToTop from "@/components/marketing/scrollToTop"
 
 export default async function IndexPage() {
 
@@ -20,6 +21,7 @@ export default async function IndexPage() {
       <StackSection />
       <FAQSection />
       <OpensourceSection />
+      <ScrollToTop />
     </>
   )
 }
