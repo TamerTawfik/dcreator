@@ -9,17 +9,17 @@ type FaqData = {
   ans: string;
 };
 
-export default function FAQItem ({ faqData }: { faqData: FaqData })  {
+export default function FAQItem({ faqData }: { faqData: FaqData }) {
   const { activeFaq, id, handleFaqToggle, quest, ans } = faqData;
 
   return (
     <>
-      <div className="flex flex-col border-b border-stroke dark:border-strokedark">
+      <div className="flex flex-col border-b border-stroke dark:border-black">
         <h4
           onClick={() => {
             handleFaqToggle(id);
           }}
-          className="cursor-pointer flex justify-between items-center font-medium text-metatitle3 text-black dark:text-white py-5 lg:py-7.5 px-6 lg:px-9"
+          className="cursor-pointer flex justify-between items-center font-medium  text-black dark:text-white py-5 lg:py-7.5 px-6 lg:px-9"
         >
           {quest}
           <Image
@@ -41,24 +41,21 @@ export default function FAQItem ({ faqData }: { faqData: FaqData })  {
             height={16}
             src="/images/icon/icon-plus-dark.svg"
             alt="plus"
-            className={`hidden ${
-              activeFaq === id ? "dark:hidden" : "dark:block"
-            }`}
+            className={`hidden ${activeFaq === id ? "dark:hidden" : "dark:block"
+              }`}
           />
           <Image
             width={28}
             height={28}
             src="/images/icon/icon-minus-dark.svg"
             alt="minus"
-            className={`hidden ${
-              activeFaq === id ? "dark:block" : "dark:hidden"
-            }`}
+            className={`hidden ${activeFaq === id ? "dark:block" : "dark:hidden"
+              }`}
           />
         </h4>
         <p
-          className={`py-5 lg:py-7.5 px-6 lg:px-9 border-t border-stroke dark:border-strokedark ${
-            activeFaq === id ? "block" : "hidden"
-          }`}
+          className={`py-5 lg:py-7.5 px-6 lg:px-9 border-t border-stroke dark:border-black ${activeFaq === id ? "block" : "hidden"
+            }`}
         >
           {ans}
         </p>

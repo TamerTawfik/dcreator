@@ -5,7 +5,7 @@ import FAQItem from "./faq-item";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function FAQSection () {
+export default function FAQSection() {
   const [activeFaq, setActiveFaq] = useState(1);
 
   const handleFaqToggle = (id: number) => {
@@ -15,22 +15,9 @@ export default function FAQSection () {
   return (
     <>
       {/* <!-- ===== FAQ Start ===== --> */}
-      <section className="pb-20 lg:pb-25 xl:pb-30 overflow-hidden">
-        <div className="mx-auto max-w-c-1235 px-4 md:px-8 xl:px-0 relative">
-          <div className="absolute -bottom-16 -z-1 w-full h-full">
-            <Image
-              fill
-              src="/images/shape/shape-dotted-light.svg"
-              alt="Dotted"
-              className="dark:hidden"
-            />
-            <Image
-              fill
-              src="/images/shape/shape-dotted-light.svg"
-              alt="Dotted"
-              className="hidden dark:block"
-            />
-          </div>
+      <section className=" container pb-20 lg:pb-25 xl:pb-30 overflow-hidden">
+        <div className="mx-auto max-w-c-1235 px-4 md:px-8 xl:px-0">
+
           <div className="flex flex-wrap md:flex-nowrap md:items-center gap-8 xl:gap-32.5">
             <motion.div
               variants={{
@@ -97,7 +84,7 @@ export default function FAQSection () {
               viewport={{ once: true }}
               className="animate_right md:w-3/5 lg:w-1/2"
             >
-              <div className="bg-white dark:bg-blacksection dark:border dark:border-strokedark shadow-solid-8 rounded-lg">
+              <div className="bg-white dark:bg-black dark:border dark:border-strokedark shadow-solid-8 rounded-lg">
                 {faqData.map((faq, key) => (
                   <FAQItem
                     key={key}
