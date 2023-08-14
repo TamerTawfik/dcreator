@@ -3,7 +3,7 @@ import { FeatureTab } from "@/types";
 const featuresTabData: FeatureTab[] = [
   {
     id: "tabOne",
-    title: "Elevate your brand's online presence .",
+    title: "Elevate your brand's online presence.",
     desc1: `SEO Optimization: Craft compelling meta titles, descriptions, and URLs to ensure your products rank high on search engines, driving organic traffic to your store.`,
     desc2: `Build authority and connect with your audience through an integrated blog. Share valuable content, industry insights, and updates to establish your expertise.`,
     image: "/images/features/features-light-01.svg",
