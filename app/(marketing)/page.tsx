@@ -8,14 +8,12 @@ import StackSection from "@/components/marketing/stack/stack-section"
 import OpensourceSection from "@/components/marketing/opensource/opensource-section"
 import FeaturesTabSection from "@/components/marketing/featuresTab"
 import FAQSection from "@/components/marketing/faq"
-import Lines from "@/components/marketing/lines"
 import ScrollToTop from "@/components/marketing/scrollToTop"
 
 export default async function IndexPage() {
 
   return (
     <>
-      <Lines />
       <HeroSection />
       <FeaturesTabSection />
       <StackSection />
