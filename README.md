@@ -5,11 +5,9 @@
 >
 > I work on this project when I have a free time. Feel free to leave feature suggestions and/or contribute to the project.
 
-[![Dcreator](./public/web-shot.png)](https://example.com/)
+[![Dcreator](./public/hero-light.png)](https://example.com/)
 
 ## About this project
-
-Dcreator is more like a digital portfolio with an integrated store. It's a place where content creators can exhibit their projects, share their creative journey, and present their skills to potential clients or customers. While Dcreator does offer the option to sell digital products, its emphasis lies in creating a professional and personalized space for creators to showcase their work.
 
 This application is designed to provide a seamless platform for selling and distributing digital products. Whether you're an artist, musician, writer, or software developer, this app has got you covered. With a user-friendly interface and robust features, you can showcase and sell your creations with ease.
 
@@ -49,7 +47,7 @@ With an intuitive user interface and a comprehensive set of features, this app e
 
 ## Features to be implemented
 
-- [x] Upload Files with **Uploadthing** and **cloudinary**
+- [x] Upload Files with **Uploadthing**
 - [ ] Product versions
 - [ ] Discounts + coupon codes
 - [ ] Generate Invoice
@@ -112,6 +110,7 @@ See the [contributing guide](./CONTRIBUTING.md) for more information.
 ## Acknowledgments
 
 - [Taxonomy](https://tx.shadcn.com/)
+- [Precedent](https://github.com/steven-tey/precedent)
 
 ## Author
 
