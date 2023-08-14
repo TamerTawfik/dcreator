@@ -1,7 +1,7 @@
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
-  name: "Dcreators",
+  name: "Dcreator",
   description:
     "An open source application for selling, marketing, and managing your Digital Products.",
   url: "",
