@@ -63,7 +63,7 @@ export default function FeaturesTabSection ()  {
               </div>
               <div className="lg:w-auto md:w-3/5">
                 <h5 className="text-black dark:text-white text-sm xl:text-regular font-medium">
-                  Clean User Interface
+                Powerful Marketing
                 </h5>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function FeaturesTabSection ()  {
               </div>
               <div className="lg:w-auto md:w-3/5">
                 <h5 className="text-black dark:text-white text-sm xl:text-regular font-medium">
-                  Essential Business Pages
+                Robust Store Management
                 </h5>
               </div>
             </div>
@@ -101,7 +101,7 @@ export default function FeaturesTabSection ()  {
               </div>
               <div className="lg:w-auto md:w-3/5">
                 <h5 className="text-black dark:text-white text-sm xl:text-regular font-medium">
-                  Fully Functional Integrations
+                Comprehensive Customer Relationship
                 </h5>
               </div>
             </div>

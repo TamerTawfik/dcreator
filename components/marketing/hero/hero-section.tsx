@@ -16,7 +16,7 @@ export default function HeroSection () {
             Follow along on Twitter
           </Link>
           <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-          Sell Digital Products with a Seamless Experience.
+          A self-hosted web app to Sell Digital Products.
           </h1>
           <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
             {siteConfig.name} is the all-in-one solution for marketing, selling, and managing your creations. Our self-hosted web app provides you with the tools you need to maximize your online sales.

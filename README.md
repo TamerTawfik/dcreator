@@ -51,7 +51,7 @@ With an intuitive user interface and a comprehensive set of features, this app e
 - [ ] Product versions
 - [ ] Discounts + coupon codes
 - [ ] Generate Invoice
-- [ ] Issue License keys
+- [ ] Generate a unique license key
 - [ ] Add Shopping Cart
 - [ ] Checkout with Stripe
 - [ ] Dashboard Orders
@@ -114,3 +114,4 @@ See the [contributing guide](./CONTRIBUTING.md) for more information.
 ## Author
 
 - Tamer Tawfik ([@TamerTawfik_Me](https://twitter.com/TamerTawfik_Me))
+  [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J8O4ZG0)
