@@ -4,7 +4,7 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
-  Command,
+  Activity,
   CreditCard,
   File,
   FileText,
@@ -32,7 +32,7 @@ export type Icon = LucideIcon
 
 export const Icons = {
   dashboard: LayoutDashboard,
-  logo: Command,
+  logo: Activity,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
