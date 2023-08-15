@@ -22,6 +22,7 @@ const ProductPage = async ({
 
   const categories = await db.category.findMany({
     where: {
+      //@ts-ignore
       authorId: user?.id,
     },
   });

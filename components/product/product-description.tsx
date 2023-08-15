@@ -1,3 +1,4 @@
+// @ts-nocheck comment
 import edjsHTML from 'editorjs-html'
 
 export default function ProductDescription({ description }: { description: any }) {

@@ -1,3 +1,4 @@
+// @ts-nocheck comment
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 

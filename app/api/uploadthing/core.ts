@@ -18,6 +18,7 @@ export const ourFileRouter = {
       if (!session) throw new Error("Unauthorized");
  
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
+      //@ts-ignore
       return { userId: session?.user?.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {

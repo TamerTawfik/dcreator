@@ -18,38 +18,7 @@ export function CategoryCreateButton({
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
-  // async function onClick() {
-  //   setIsLoading(true)
-
-  //   const response = await fetch("/api/products", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       name: "Untitled Product",
-  //     }),
-  //   })
-
-  //   setIsLoading(false)
-
-  //   if (!response?.ok) {
-      
-  //     return toast({
-  //       title: "Something went wrong.",
-  //       description: "Your Product was not created. Please try again.",
-  //       variant: "destructive",
-  //     })
-  //   }
-
-  //   const product = await response.json()
-
-  //   // This forces a cache invalidation.
-  //   router.refresh()
-
-  //   router.push(`/editor/${product.id}`)
-  // }
-
+  
   return (
     <button
       onClick={() => router.push('/dashboard/categories/new')}

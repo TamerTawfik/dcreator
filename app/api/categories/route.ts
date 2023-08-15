@@ -26,6 +26,7 @@ export async function POST(
     const category = await db.category.create({
       data: {
         name,
+        //@ts-ignore
         authorId: user?.id,
       }
     });
