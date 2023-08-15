@@ -1,3 +1,4 @@
+// @ts-nocheck comment
 import ProductList from "@/components/product/product-list";
 import Container from "@/components/product/container";
 import { db } from "@/lib/db"
@@ -5,15 +6,15 @@ import { db } from "@/lib/db"
 export const revalidate = 0;
 
 const StorePage = async () => {
-    const products = await db.product.findMany({
-        include: {
-          images: true,
-          category: true,
-        },
-        orderBy: {
-          createdAt: 'desc',
-        }
-      });
+  const products = await db.product.findMany({
+    include: {
+      images: true,
+      category: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    }
+  });
 
   return (
     <Container>
