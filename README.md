@@ -3,7 +3,7 @@
 > **Warning**
 > This is a work-in-progress and not the finished product.
 >
-> I work on this project when I have a free time. Feel free to leave feature suggestions and/or contribute to the project.
+> Feel free to leave feature suggestions and/or contribute to the project.
 
 [![Dcreator](./public/hero-light.png)](https://example.com/)
 
